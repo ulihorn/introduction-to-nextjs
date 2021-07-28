@@ -22,18 +22,16 @@ const Container = styled.div`
   paddingtop: 1rem;
 `;
 
-export async function getServerSideProps(context) {
-  const pokemon = await (
-    await fetch('http://localhost:3000/pokemon.json')
-  ).json();
-  return {
-    props: { pokemon }, // will be passed to the page component as props
-  };
-}
+// export async function getServerSideProps(context) {
+//   const pokemon = require('../src/pokemon.json');
+//   return {
+//     props: { pokemon }, // will be passed to the page component as props
+//   };
+// }
 
 const Home = ({ pokemon }) => {
   // console.log('pokemon: ', pokemon);
-  store.setPokemon(pokemon);
+  // store.setPokemon(pokemon);
   return (
     <Container>
       <CssBaseline />

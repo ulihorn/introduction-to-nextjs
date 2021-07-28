@@ -1,7 +1,8 @@
 import { makeObservable, observable, computed } from 'mobx';
 
 class Store {
-  pokemon = [];
+  // pokemon = [];
+  pokemon = require('./pokemon.json');
   filter = '';
   selectedItem = null;
 

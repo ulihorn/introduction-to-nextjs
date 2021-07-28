@@ -17,12 +17,18 @@ const PageContainer = styled.div`
   padding-top: 1em;
 `;
 
-export async function getServerSideProps(context) {
-  const allPokemon = await (
-    await fetch('http://localhost:3000/pokemon.json')
-  ).json();
+export async function getStaticPaths() {
+  const allPokemon = require('../../src/pokemon.json');
+  return {
+    paths: allPokemon.map((p) => ({ params: { id: p.id.toString() } })),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context) {
+  const allPokemon = require('../../src/pokemon.json');
   const pokemon = allPokemon.find(
-    ({ id }) => id.toString() === context.query.id
+    ({ id }) => id.toString() === context.params.id
   );
   return {
     props: {
@@ -50,7 +56,7 @@ export default withRouter(({ pokemon }) => {
             </TableHead>
             <TableBody>
               {Object.keys(pokemon.base).map((k) => (
-                <TableRow>
+                <TableRow key={pokemon.base.id}>
                   <TableCell>{k}</TableCell>
                   <TableCell>{pokemon.base[k]}</TableCell>
                 </TableRow>
